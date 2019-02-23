@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 
-upgrade_distribution () {
+update_distribution () {
   apt-get --assume-yes update
   apt-get --assume-yes upgrade
+}
+
+upgrade_distribution () {
+  apt-get --assume-yes update
   apt-get --assume-yes dist-upgrade
 }
 
@@ -24,7 +28,7 @@ set_defaults () {
 
 
 main () {
-	upgrade_distribution
+	update_distribution
 	install_base_packages
 	install_speedtest
 	install_angular
