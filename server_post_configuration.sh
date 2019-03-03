@@ -11,7 +11,7 @@ upgrade_distribution () {
 }
 
 install_base_packages () {
-  apt-get --assume-yes install python3-pip git npm nodejs lm-sensors
+  apt-get --assume-yes install python3-pip git npm nodejs lm-sensors nload
 }
 
 install_speedtest () {
@@ -26,6 +26,10 @@ set_defaults () {
   update-alternatives --set editor /usr/bin/vim.basic
 }
 
+install_clients () {
+  apt-get install mysql-client
+}
+
 install_docker () {
   apt install apt-transport-https ca-certificates curl software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -36,6 +40,11 @@ install_docker () {
   systemctl status docker
 }
 
+install_docker_compose () {
+  curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+}
+
 clean () {
     apt autoremove
 }
@@ -44,7 +53,9 @@ main () {
 	install_base_packages
 	install_speedtest
 	install_angular
+	install_clients
 	install_docker
+	install_docker_compose
 	clean
 	set_defaults
 }
